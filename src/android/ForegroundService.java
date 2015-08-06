@@ -189,6 +189,7 @@ public class ForegroundService extends Service {
                 stringBuilder.append(getTime(hour)).append(":").append(getTime(minute)).append(":").append(getTime(second));
                 String dateTime = stringBuilder.toString();
                 String notificationMessage = foregroundService.message.replace("{{datetime}}", dateTime);
+                foregroundService.notificationBuilder.setContentText(notificationMessage);
                 foregroundService.startForeground(ID, foregroundService.notificationBuilder.build());
             }
         }
