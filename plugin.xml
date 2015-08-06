@@ -12,7 +12,9 @@
                 <param name="android-package" value="com.mobishift.plugins.foregroundnotification.ForegroundNotification" />
             </feature>
         </config-file>
-        <!--<config-file parent="/*" target="AndroidManifest.xml"></config-file>-->
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <service android:name="com.mobishift.plugins.foregroundnotification.ForegroundService" />
+        </config-file>
         
         <source-file src="src/android/ForegroundService.java" target-dir="src/com/mobishift/plugins/foregroundnotification" />
         <source-file src="src/android/ForegroundNotification.java" target-dir="src/com/mobishift/plugins/foregroundnotification" />
