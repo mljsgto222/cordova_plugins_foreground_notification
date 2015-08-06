@@ -1,16 +1,20 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<plugin id="com.mobishift.plugins.foregroundnotification" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="com.mobishift.plugins.foregroundnotification" version="0.0.2" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>ForegroundNotification</name>
     <js-module name="ForegroundNotification" src="www/ForegroundNotification.js">
         <clobbers target="cordova.plugins.ForegroundNotification" />
     </js-module>
     <platform name="android">
+        <hook type="before_plugin_install" src="scripts/android_before_install.js" />
+        <hook type="before_plugin_uninstall" src="scripts/android_before_uninstall.js" />
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="ForegroundNotification">
                 <param name="android-package" value="com.mobishift.plugins.foregroundnotification.ForegroundNotification" />
             </feature>
         </config-file>
-        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <!--<config-file parent="/*" target="AndroidManifest.xml"></config-file>-->
+        
+        <source-file src="src/android/ForegroundService.java" target-dir="src/com/mobishift/plugins/foregroundnotification" />
         <source-file src="src/android/ForegroundNotification.java" target-dir="src/com/mobishift/plugins/foregroundnotification" />
     </platform>
 </plugin>
