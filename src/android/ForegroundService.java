@@ -91,36 +91,12 @@ public class ForegroundService extends Service {
             notificationBuilder.setTicker(message);
             startForeground(ID, notificationBuilder.build());
         }else if(type.equals(TYPE_TIME)){
-            String notificationMessage = message.replace("{{datetime}}", "00:00:00");
+            String notificationMessage = message.replace("{{datetime}}", "");
             notificationBuilder.setContentText(notificationMessage);
             notificationBuilder.setTicker(notificationMessage);
             startForeground(ID, notificationBuilder.build());
+            
             IntervalHandler intervalHandler = new IntervalHandler(this);
-//            timeHandler = new Handler(){
-//                @Override
-//                public void handleMessage(Message msg) {
-//                    if(msg.what == 1){
-//                        long duration = msg.getData().getLong("duration");
-//                        int hour = (int)(duration / 1000.0 / 3600.0);
-//                        duration = duration - hour * 3600 * 1000;
-//                        int minute = (int)(duration / 1000.0 / 60.0 );
-//                        duration = duration - minute * 1000 * 60;
-//                        int second = (int)(duration / 1000.0);
-//                        StringBuilder stringBuilder = new StringBuilder();
-//                        stringBuilder.append(getTime(hour)).append(":").append(getTime(minute)).append(":").append(getTime(second));
-//                        String dateTime = stringBuilder.toString();
-//                        String notificationMessage = message.replace("{{datetime}}", dateTime);
-//                        notificationBuilder.setContentText(notificationMessage);
-////                        notificationBuilder.setTicker(notificationMessage);
-////                        startForeground(ID, notificationBuilder.build());
-////                        notification.contentView.setTextViewText(android.R.id.text1, notificationMessage);
-////                        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-////                        manager.notify(ID, notificationBuilder.build());
-//                        startForeground(ID, notificationBuilder.build());
-//                    }
-//                }
-//            };
-
             IntervalTask intervalTask = new IntervalTask(showTime, intervalHandler);
             timer = new Timer();
             timer.schedule(intervalTask, 0, 1000);
@@ -162,12 +138,6 @@ public class ForegroundService extends Service {
                 notificationTimer = null;
             }
         }, time);
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                showNotification();
-//            }
-//        }, time);
     }
 
     private class IntervalTask extends TimerTask{
@@ -219,12 +189,6 @@ public class ForegroundService extends Service {
                 stringBuilder.append(getTime(hour)).append(":").append(getTime(minute)).append(":").append(getTime(second));
                 String dateTime = stringBuilder.toString();
                 String notificationMessage = foregroundService.message.replace("{{datetime}}", dateTime);
-                foregroundService.notificationBuilder.setContentText(notificationMessage);
-//                        notificationBuilder.setTicker(notificationMessage);
-//                        startForeground(ID, notificationBuilder.build());
-//                        notification.contentView.setTextViewText(android.R.id.text1, notificationMessage);
-//                        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//                        manager.notify(ID, notificationBuilder.build());
                 foregroundService.startForeground(ID, foregroundService.notificationBuilder.build());
             }
         }
