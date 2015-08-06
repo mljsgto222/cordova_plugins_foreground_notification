@@ -29,11 +29,8 @@ var foregroundNotification = new ForegroundNotification();
 
 channel.onCordovaReady.subscribe(function(){
     foregroundNotification.getURL(function(data){
-        if(data && data !== 'OK'){
-            var json = JSON.parse(data);
-            if(json){
-                cordova.fireDocumentEvent('appOpenWithURL', json);
-            }
+        if(data){
+            cordova.fireDocumentEvent('appOpenWithURL', data);
         }
     }, function(error){
         console.log('get url data error');
